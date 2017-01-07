@@ -1,0 +1,7 @@
+*.swp
+client_id.json
+dbs
+node_modules
+static/js
+t/dbs
+npm-debug.log
