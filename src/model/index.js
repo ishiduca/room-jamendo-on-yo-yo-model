@@ -43,22 +43,24 @@ Playlist.prototype.removeNotify = function () {
   this.setState({notify: this.initialState.notify})
 }
 
-Playlist.prototype.findTrack = function (query) {
-  var key = Object.keys(query)[0]
+Playlist.prototype.findTrack = function (_key, _val) {
+  var key = _key.trim()
+  var val = _val.trim()
   var err
   if (key === '') {
     err = new Error('"a key of query" is not found')
-    err.data = query
+    err.data = {key: key, val: val}
     err.name = 'PlaylistFindTrackError'
     return this.errors.publish(err)
   }
-  var val = query[key]
   if (val === '') {
     err = new Error('"a value of query" is not found')
-    err.data = query
+    err.data = {key: key, val: val}
     err.name = 'PlaylistFindTrackError'
     return this.errors.publish(err)
   }
+
+  var query = {}; query[key] = val
   var title = `${key}: ${val}`
   var tracks = []
 
@@ -78,9 +80,16 @@ Playlist.prototype.findTrack = function (query) {
       tracks: tracks,
       title: title
     }
-    this.setState({playlists: xtend(this.state.playlists, {search: search})})
+    this.setState({
+      playlists: xtend(this.state.playlists, {search: search})
+    })
     done()
   }))
+
+  this.setState({search: {
+    key: key,
+    val: val
+  }})
 }
 
 Playlist.prototype.getTrackInFavorites = function (track) {

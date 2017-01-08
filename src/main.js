@@ -15,6 +15,10 @@ var model = new Model(
     track: null,
     currentPlaylistName: null
   },
+  search: {
+    key: 'name',
+    val: null
+  },
   playlists: {
     search: {
       track: null,
@@ -42,7 +46,7 @@ var Notify = require('./components/notify')
 var create = (state, model) => app.html `
     <main>
         ${Player(state.player, model)}
-        ${SearchForm(state, model)}
+        ${SearchForm(state.search, model)}
         <div class="rows is-top is-space-around is-wrap">
             ${Playlist(state.playlists.search, model, 'search')}
             ${Playlist(state.playlists.favorites, model, 'favorites')}

@@ -1,6 +1,6 @@
 {
   "name": "room-jamendo-on-yo-yo-model",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Jamendo Musiceが提供する楽曲で作業用のプレイリストをつくる",
   "main": "app.js",
   "dependencies": {
@@ -35,7 +35,9 @@
     ]
   },
   "standard": {
-
+    "ignore": [
+      "t/"
+    ]
   },
   "keywords": [
     "jamendo",
