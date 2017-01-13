@@ -30,20 +30,20 @@ module.exports = (state, model) => {
   var classFav = state.track.isFavo ? 'fa fa-heart' : 'fa fa-heart-o'
   return yo `
     <div id="wrap-player">
-      <div class="rows">
+      <figure class="rows">
         <div>
           <img src=${state.track.image} />
         </div>
         <div>
           ${Audio(state, model)}
         </div>
-        <div class="track-meta">
+        <figcaption class="track-meta">
           <h5>
             ${state.track.name}
             <span style="font-weight: normal;">(via ${state.track.album_name || 'single'})</span>
           </h5>
           <p>${state.track.artist_name}</p>
-        </div>
+        </figcaption>
         <div>
           <a class="button"
             onclick=${ev => {
@@ -54,7 +54,7 @@ module.exports = (state, model) => {
             <i class=${classFav}></i>
           </a>
         </div>
-      </div>
+      </figure>
     </div>
   `
 }
