@@ -3,6 +3,8 @@ var xtend = require('xtend')
 var through = require('through2')
 var Model = require('yo-yo-model/model')
 
+var w = require('global/window')
+
 inherits(Playlist, Model)
 module.exports = Playlist
 
@@ -10,6 +12,11 @@ function Playlist (jamendo, socket, initialState) {
   Model.call(this, initialState)
   this.jamendo = jamendo
   this.socket = socket
+
+  w.onpopstate = e => {
+    var playlists = xtend(this.state.playlists, e.state)
+    this.setState({playlists: playlists})
+  }
 
   this.socket.once('connect', () => console.log('websocket connected'))
   this.socket.once('error', err => this.errors.publish(err))
@@ -33,6 +40,10 @@ function Playlist (jamendo, socket, initialState) {
 
     done()
   }))
+}
+
+Playlist.prototype.historyGo = function (n) {
+  if (w.history.state) w.history.go(n)
 }
 
 Playlist.prototype.pushNotify = function (query) {
@@ -83,6 +94,9 @@ Playlist.prototype.findTrack = function (_key, _val) {
     this.setState({
       playlists: xtend(this.state.playlists, {search: search})
     })
+
+    w.history.pushState({search: search}, title, `/search/${key}/${val}`)
+
     done()
   }))
 

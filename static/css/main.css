@@ -7,6 +7,7 @@ a {
     display : inline-block;
     padding: 3px;
     margin: 3px;
+    cursor: pointer;
 }
 
 .rows,
@@ -75,5 +76,7 @@ a {
 }
 
 #wrap-search-form {
+}
+#wrap-form-control {
     margin-top: 106px;
 }

@@ -24,7 +24,9 @@ const Audio = (state, model) => {
 }
 
 module.exports = (state, model) => {
-  if (!state.track || !state.track.id) return yo `<div id="wrap-player"><h1>${AppName}</h1></div>`
+  if (!state.track || !state.track.id) {
+    return yo `<div id="wrap-player"><h1>${AppName}</h1></div>`
+  }
 
   var methodName = state.track.isFavo ? 'removeFavorites' : 'addFavorites'
   var classFav = state.track.isFavo ? 'fa fa-heart' : 'fa fa-heart-o'

@@ -9,8 +9,8 @@ var Model = require('./model')
 
 var model = new Model(
   new Jamendo(clientId, {https: true}),
-  socket
-, {
+  socket,
+  {
   player: {
     track: null,
     currentPlaylistName: null
@@ -42,11 +42,15 @@ var Player = require('./components/player')
 var SearchForm = require('./components/search-form')
 var Playlist = require('./components/playlist')
 var Notify = require('./components/notify')
+var HistoryControl = require('./components/history-control')
 
 var create = (state, model) => app.html `
     <main>
         ${Player(state.player, model)}
-        ${SearchForm(state.search, model)}
+        <div class="rows is-space-around" id="wrap-form-control">
+            ${SearchForm(state.search, model)}
+            ${HistoryControl(model)}
+        </div>
         <div class="rows is-top is-space-around is-wrap">
             ${Playlist(state.playlists.search, model, 'search')}
             ${Playlist(state.playlists.favorites, model, 'favorites')}
